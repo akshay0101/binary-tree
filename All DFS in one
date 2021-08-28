@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+struct tree{
+      int data;
+      tree* left=NULL;
+      tree* right=NULL;
+
+      tree(int val){
+          data=val;
+          left=right=NULL;         //constructor
+      }
+
+};
+
+vector<int>in,pre,post;
+void alldfs(tree* root){
+   stack<pair<tree*,int>>st;
+   st.push({root,1});
+   if(root==NULL)return;
+   
+   while(!st.empty()){
+      auto it=st.top();
+      st.pop();
+      // if the integer part is 1 then add node to preorder and increase the constant
+      if(it.second==1){
+          pre.push_back(it.first->data);
+          it.second++;
+          st.push(it);
+
+          if(it.first->left!=NULL)st.push({it.first->left,1});
+      }
+      // if the integer part is 2 then add node to inorder and increase the constant
+      else if(it.second==2){
+          in.push_back(it.first->data);
+          it.second++;
+          st.push(it);
+
+          if(it.first->right!=NULL)st.push({it.first->right,1});
+
+      }
+      // if the integer part is 3 then add node to postorder 
+      else{
+          post.push_back(it.first->data);
+      }
+
+   }
+
+   for(auto it:post){
+       cout<<it<<" ";
+   }
+}
+
+int main()
+{
+ tree* root=new tree(1);
+ root->left=new tree(2);
+ root->right=new tree(3);
+ root->left->right=new tree(5);
+ 
+alldfs(root);
+ return 0;    
+}
