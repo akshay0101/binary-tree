@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+struct tree{
+      int data;
+      tree* left=NULL;
+      tree* right=NULL;
+
+      tree(int val){
+          data=val;
+          left=right=NULL;         //constructor
+      }
+
+};
+
+int maxdepth(tree* root){
+    if(root==NULL)return 0;
+
+    int lh=maxdepth(root->left);
+    int rh=maxdepth(root->right);
+
+    return 1+max(lh,rh);
+}
+
+int dfsheight(tree* root){
+    if(root==NULL)return 0;
+
+    int lh=dfsheight(root->left);       //solution done in T-O(N) as whenever the absolute depth is greater than 1 we are returning -1 directly 
+    if(lh==-1)return -1;                
+    int rh=dfsheight(root->right);
+    if(rh==-1)return -1;
+
+    if(abs(rh-lh)>1)return -1;
+    else{
+        return 1+max(lh,rh);
+    }
+}
+
+bool isbalanced(tree* root){
+     return dfsheight(root)!=-1;
+}
+
+
+int main()
+{
+ tree* root=new tree(1);
+ root->left=new tree(2);
+ root->right=new tree(3);
+ root->left->right=new tree(5);
+ 
+ //cout<<maxdepth(root);
+ //cout<<isbalanced(root);
+
+ return 0;    
+}
