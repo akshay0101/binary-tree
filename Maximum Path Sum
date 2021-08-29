@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+struct tree{
+      int data;
+      tree* left=NULL;
+      tree* right=NULL;
+
+      tree(int val){
+          data=val;
+          left=right=NULL;         //constructor
+      }
+
+};
+int maxsum=INT_MIN;
+int pathsum(tree* root){
+    if(root==NULL)return 0;
+    int lh=max(0,pathsum(root->left));
+    int rh=max(0,pathsum(root->right));
+
+    maxsum=max(0,lh+rh+root->data);
+    return max(lh,rh)+root->data;
+
+}
+int maxsumpath(tree* root){
+    pathsum(root);
+    return maxsum;
+}
+
+int main()
+{
+ tree* root=new tree(1);
+ root->left=new tree(2);
+ root->right=new tree(3);
+ root->left->right=new tree(5);
+ 
+ //cout<<maxdepth(root);
+ //cout<<isbalanced(root);
+ cout<<maxsumpath(root);
+ return 0;    
+}
