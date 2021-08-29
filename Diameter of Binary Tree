@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+struct tree{
+      int data;
+      tree* left=NULL;
+      tree* right=NULL;
+
+      tree(int val){
+          data=val;
+          left=right=NULL;         //constructor
+      }
+
+};
+int maxi=INT_MIN;
+int depth(tree* root){
+    if(root==NULL)return 0;
+    int lh=depth(root->left);
+    int rh=depth(root->right);
+    maxi=max(maxi,lh+rh);
+    return 1+max(lh,rh);
+}
+int diameter(tree* root){
+    depth(root);
+    return maxi;
+
+}
+
+
+int main()
+{
+ tree* root=new tree(1);
+ root->left=new tree(2);
+ root->right=new tree(3);
+ root->left->right=new tree(5);
+ 
+ //cout<<maxdepth(root);
+ //cout<<isbalanced(root);
+ cout<<diameter(root);
+ return 0;    
+}
