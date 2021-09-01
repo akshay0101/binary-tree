@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int>ans;
     void func(TreeNode* root,int level){
-        if(root==NULL)return;
+        if(root==NULL)return;                          T-O(N) S-O(N)
         int x=level;
         if(level==ans.size()){
             ans.push_back(root->val);
