@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int>ans;
+    void func(TreeNode* root,int level){
+        if(root==NULL)return;
+        //int x=level;
+        if(level==ans.size()){
+            ans.push_back(root->val);
+        }
+        func(root->left,level+1);                //just start for the left side reccursion first
+        func(root->right,level+1);
+        
+        
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        func(root,0);
+        return ans;
+    }
+};
